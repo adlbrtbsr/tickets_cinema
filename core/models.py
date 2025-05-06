@@ -13,15 +13,15 @@ class Genre(models.Model):
 
 class Actor(models.Model):
     name = models.CharField(max_length=60)
-    age = models.PositiveIntegerField()
+    age = models.PositiveSmallIntegerField(help_text="Age of the actor in years")
     nationality = models.CharField(max_length=54)
 
 
 class Movie(models.Model):
     title = models.CharField(max_length=185)
-    genres = models.ManyToManyField(Genre)
-    actors = models.ManyToManyField(Actor)
-    duration = models.PositiveIntegerField()
+    genres = models.ManyToManyField(Genre, related_name="movies")
+    actors = models.ManyToManyField(Actor, related_name="movies")
+    duration = models.PositiveIntegerField(help_text="Duration of the movie in minutes")
 
 
 class CinemaHall(models.Model):
@@ -29,18 +29,18 @@ class CinemaHall(models.Model):
 
 
 class Seat(models.Model):
-    row = models.PositiveIntegerField()
-    number = models.PositiveIntegerField()
+    row = models.PositiveSmallIntegerField()
+    number = models.PositiveSmallIntegerField()
     hall = models.ForeignKey(CinemaHall, on_delete=models.PROTECT)
 
 
 class MovieScreening(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.ForeignKey(Movie, on_delete=models.PROTECT)
     date = models.DateTimeField()
     hall = models.ForeignKey(CinemaHall, on_delete=models.PROTECT)
 
 
 class Ticket(models.Model):
     movie_screening = models.ForeignKey(MovieScreening, on_delete=models.CASCADE)
-    seat = models.ForeignKey(Seat, on_delete=models.PROTECT)
-    price = models.PositiveIntegerField()
+    seat = models.ForeignKey(Seat, on_delete=models.SET_NULL, null=True)
+    price = models.PositiveSmallIntegerField(help_text="Price of the ticket in PLN")
