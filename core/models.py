@@ -35,12 +35,20 @@ class Seat(models.Model):
 
 
 class MovieScreening(models.Model):
-    movie = models.ForeignKey(Movie, on_delete=models.PROTECT, related_name="movie_screening")
+    movie = models.ForeignKey(
+        Movie, on_delete=models.PROTECT, related_name="movie_screening"
+    )
     date = models.DateTimeField()
-    hall = models.ForeignKey(CinemaHall, on_delete=models.PROTECT, related_name="movie_screening")
+    hall = models.ForeignKey(
+        CinemaHall, on_delete=models.PROTECT, related_name="movie_screening"
+    )
 
 
 class Ticket(models.Model):
-    movie_screening = models.ForeignKey(MovieScreening, on_delete=models.CASCADE, related_name="ticket")
-    seat = models.ForeignKey(Seat, on_delete=models.SET_NULL, null=True, related_name="ticket")
+    movie_screening = models.ForeignKey(
+        MovieScreening, on_delete=models.CASCADE, related_name="ticket"
+    )
+    seat = models.ForeignKey(
+        Seat, on_delete=models.SET_NULL, null=True, related_name="ticket"
+    )
     price = models.PositiveSmallIntegerField(help_text="Price of the ticket in PLN")
