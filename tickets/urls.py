@@ -17,7 +17,7 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
-from drf_spectacular.views import SpectacularAPIView
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 
 from tickets.settings.local import DEBUG
 
@@ -26,4 +26,11 @@ urlpatterns = [
 ]
 
 if DEBUG:
-    urlpatterns += [path("api/schema/", SpectacularAPIView.as_view(), name="schema")]
+    urlpatterns += [
+        path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
+        path(
+            "api/schema/swagger-ui/",
+            SpectacularSwaggerView.as_view(url_name="schema"),
+            name="swagger-ui",
+        ),
+    ]
