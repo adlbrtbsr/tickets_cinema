@@ -17,7 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path
+from drf_spectacular.views import SpectacularAPIView
+
+from tickets.settings.local import DEBUG
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
+
+if DEBUG:
+    urlpatterns += [path("api/schema/", SpectacularAPIView.as_view(), name="schema")]
