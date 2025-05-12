@@ -17,17 +17,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 # Application definition
 DJANGO_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "django.contrib.sessions",
+    "django.contrib.messages",
+    "django.contrib.staticfiles",
 ]
-THIRD_PARTY_APPS = []
-LOCAL_APPS = [
-    'core'
-]
+THIRD_PARTY_APPS = ["rest_framework", "django_filters", "drf_spectacular"]
+LOCAL_APPS = ["core"]
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
@@ -39,6 +37,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
 
 ROOT_URLCONF = "tickets.urls"
 
@@ -59,7 +61,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "tickets.wsgi.application"
 
-AUTH_USER_MODEL = 'core.User'
+AUTH_USER_MODEL = "core.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
