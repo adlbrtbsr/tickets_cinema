@@ -4,3 +4,4 @@ django-filter==25.1
 djangorestframework==3.16.0
 drf-spectacular==0.28.0
 isort==6.0.1
+psycopg2-binary==2.9.10
