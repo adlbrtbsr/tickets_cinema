@@ -1,6 +1,6 @@
 import factory
-from factory.django import DjangoModelFactory
 from factory import Faker, SubFactory
+from factory.django import DjangoModelFactory
 
 from core.models import Actor, CinemaHall, Genre, Movie, MovieScreening, Seat, Ticket
 
@@ -13,11 +13,13 @@ class ActorFactory(DjangoModelFactory):
     age = Faker("random_int", min_value=1, max_value=100)
     nationality = Faker("country")
 
+
 class CinemaHallFactory(DjangoModelFactory):
     class Meta:
         model = CinemaHall
 
     name = Faker("company")
+
 
 class GenreFactory(DjangoModelFactory):
     class Meta:
@@ -25,6 +27,7 @@ class GenreFactory(DjangoModelFactory):
 
     name = Faker("word")
     is_for_adults = Faker("pybool")
+
 
 class MovieFactory(DjangoModelFactory):
     class Meta:
@@ -53,6 +56,7 @@ class MovieFactory(DjangoModelFactory):
         else:
             self.actors.add(ActorFactory())
 
+
 class MovieScreeningFactory(DjangoModelFactory):
     class Meta:
         model = MovieScreening
@@ -61,6 +65,7 @@ class MovieScreeningFactory(DjangoModelFactory):
     date = Faker("date_time")
     hall = factory.SubFactory(CinemaHallFactory)
 
+
 class SeatFactory(DjangoModelFactory):
     class Meta:
         model = Seat
@@ -68,6 +73,7 @@ class SeatFactory(DjangoModelFactory):
     row = Faker("random_int", min_value=1, max_value=25)
     number = Faker("random_int", min_value=1, max_value=40)
     hall = SubFactory(CinemaHallFactory)
+
 
 class TicketFactory(DjangoModelFactory):
     class Meta:
