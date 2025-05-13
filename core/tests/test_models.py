@@ -86,7 +86,7 @@ class TestModels:
         seat = SeatFactory(
             row=21, number=37, hall=CinemaHallFactory(name="Cinema Hall")
         )
-        assert seat.row == 21
+        assert seat.row == 20
         assert seat.number == 37
         assert seat.hall.name == "Cinema Hall"
 
