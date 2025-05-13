@@ -2,8 +2,8 @@ services:
   api:
     build: .
     command: >
-      sh -c "python manage.py migrate&&
-             python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8080"
     restart: always
     volumes:
       - .:/app
@@ -14,6 +14,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    links:
+      - db:db
+    networks:
+      - djangonetwork
 
   db:
     image: postgres
@@ -28,10 +32,16 @@ services:
       - db:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
-      interval: 10s
+      interval: 5s
       timeout: 15s
       retries: 3
+    networks:
+      - djangonetwork
 
 volumes:
   db:
     driver: local
+
+networks:
+  djangonetwork:
+    driver: bridge
