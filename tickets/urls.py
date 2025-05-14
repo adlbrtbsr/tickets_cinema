@@ -26,10 +26,6 @@ urlpatterns = [
 ]
 
 if DEBUG:
-
-    def trigger_error(request):
-        division_by_zero = 1 / 0
-
     urlpatterns += [
         path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
         path(
@@ -37,5 +33,4 @@ if DEBUG:
             SpectacularSwaggerView.as_view(url_name="schema"),
             name="swagger-ui",
         ),
-        path("sentry-debug/", trigger_error),
     ]
