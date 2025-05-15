@@ -17,7 +17,8 @@ services:
     links:
       - db:db
     networks:
-        - djangonetwork
+      - djangonetwork
+
 
   db:
     image: postgres

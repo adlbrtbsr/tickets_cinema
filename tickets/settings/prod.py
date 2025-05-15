@@ -1,5 +1,7 @@
 import os
 
+import sentry_sdk
+
 from .base import *
 
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
@@ -18,3 +20,8 @@ DATABASES = {
         "PORT": "5432",
     }
 }
+
+sentry_sdk.init(
+    dsn=os.environ.get("SENTRY_DSN"),
+    send_default_pii=True,
+)
