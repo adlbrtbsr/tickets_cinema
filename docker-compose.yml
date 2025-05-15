@@ -19,6 +19,7 @@ services:
     networks:
       - djangonetwork
 
+
   db:
     image: postgres
     restart: always
