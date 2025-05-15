@@ -1,0 +1,42 @@
+services:
+  app:
+    build: .
+    depends_on:
+      db_test:
+        condition: service_healthy
+    environment:
+      POSTGRES_DB: test_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: test_pass
+      DB_HOST: db_test
+      DB_PORT: 5432
+      DJANGO_SETTINGS_MODULE: tickets.settings.test
+    command: >
+      sh -c "python -m pytest core/tests"
+    links:
+      - db_test:db_test
+    networks:
+      - djangotestnetwork
+
+  db_test:
+    image: postgres
+    environment:
+      POSTGRES_USER: postgres
+      PGUSER: postgres
+      POSTGRES_PASSWORD: test_pass
+      POSTGRES_DB: test_db
+    tmpfs:
+      - /var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - djangotestnetwork
+
+networks:
+  djangotestnetwork:
+    driver: bridge
