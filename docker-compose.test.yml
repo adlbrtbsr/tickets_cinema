@@ -13,6 +13,10 @@ services:
       DJANGO_SETTINGS_MODULE: tickets.settings.test
     command: >
       sh -c "python -m pytest core/tests"
+    links:
+      - db_test:db_test
+    networks:
+      - djangotestnetwork
 
   db_test:
     image: postgres
@@ -30,3 +34,9 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    networks:
+      - djangotestnetwork
+
+networks:
+  djangotestnetwork:
+    driver: bridge
