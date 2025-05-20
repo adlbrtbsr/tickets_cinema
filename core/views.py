@@ -31,7 +31,9 @@ class GenreViewSet(viewsets.GenericViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -69,7 +71,9 @@ class ActorViewSet(viewsets.GenericViewSet):
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def update(self, request, *args, **kwargs):
         instance = self.get_object()
@@ -107,7 +111,9 @@ class MovieApiView(generics.GenericAPIView):
     def get(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def put(self, request, pk=None):
         instance = self.get_object()
@@ -145,7 +151,9 @@ class CinemaHallApiView(generics.GenericAPIView):
     def get(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def put(self, request, pk=None):
         instance = self.get_object()
@@ -185,7 +193,9 @@ class SeatApiView(generics.GenericAPIView):
     def get(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def put(self, request, pk=None):
         instance = self.get_object()
@@ -223,7 +233,9 @@ class MovieScreeningApiView(generics.GenericAPIView):
     def get(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def put(self, request, pk=None):
         instance = self.get_object()
@@ -263,7 +275,9 @@ class TicketApiView(generics.GenericAPIView):
     def get(self, request, pk=None):
         instance = self.get_object()
         serializer = self.get_serializer(instance)
-        return JsonResponse(serializer.data, status=200, content_type="application/json")
+        return JsonResponse(
+            serializer.data, status=200, content_type="application/json"
+        )
 
     def put(self, request, pk=None):
         instance = self.get_object()
