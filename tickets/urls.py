@@ -1,28 +1,41 @@
-"""
-URL configuration for tickets project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
-
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework.routers import DefaultRouter
 
+from core.views import (
+    ActorViewSet,
+    CinemaHallApiView,
+    GenreViewSet,
+    MovieApiView,
+    MovieScreeningApiView,
+    SeatApiView,
+    TicketApiView,
+)
 from tickets.settings.local import DEBUG
 
+router = DefaultRouter()
+router.register(r"genres", GenreViewSet, basename="genre")
+router.register(r"actors", ActorViewSet, basename="actor")
+
+
 urlpatterns = [
+    path("", include(router.urls)),
     path("admin/", admin.site.urls),
+    path("movies/<int:pk>/", MovieApiView.as_view(), name="movie-detail"),
+    path("movies/", MovieApiView.as_view(), name="movie-list"),
+    path(
+        "cinema-halls/<int:pk>/", CinemaHallApiView.as_view(), name="cinema-hall-detail"
+    ),
+    path("cinema-halls/", CinemaHallApiView.as_view(), name="cinema-hall-list"),
+    path("seats/<int:pk>/", SeatApiView.as_view(), name="seat-detail"),
+    path("seats/", SeatApiView.as_view(), name="seat-list"),
+    path(
+        "screenings/<int:pk>/", MovieScreeningApiView.as_view(), name="screening-detail"
+    ),
+    path("screenings/", MovieScreeningApiView.as_view(), name="screening-list"),
+    path("tickets/<int:pk>/", TicketApiView.as_view(), name="ticket-detail"),
+    path("tickets/", TicketApiView.as_view(), name="ticket-list"),
 ]
 
 if DEBUG:
