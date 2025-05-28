@@ -5,12 +5,17 @@ from rest_framework.routers import DefaultRouter
 
 from core.views import (
     ActorViewSet,
-    CinemaHallApiView,
+    CinemaHallCreateView,
+    CinemaHallDetailView,
     GenreViewSet,
-    MovieApiView,
-    MovieScreeningApiView,
-    SeatApiView,
-    TicketApiView,
+    MovieCreateView,
+    MovieDetailView,
+    MovieScreeningCreateView,
+    MovieScreeningDetailView,
+    SeatCreateView,
+    SeatDetailView,
+    TicketCreateView,
+    TicketDetailView,
 )
 from tickets.settings.local import DEBUG
 
@@ -22,20 +27,24 @@ router.register(r"actors", ActorViewSet, basename="actor")
 urlpatterns = [
     path("", include(router.urls)),
     path("admin/", admin.site.urls),
-    path("movies/<int:pk>/", MovieApiView.as_view(), name="movie-detail"),
-    path("movies/", MovieApiView.as_view(), name="movie-list"),
+    path("movies/<int:pk>/", MovieDetailView.as_view(), name="movie-detail"),
+    path("movies/", MovieCreateView.as_view(), name="movie-list"),
     path(
-        "cinema-halls/<int:pk>/", CinemaHallApiView.as_view(), name="cinema-hall-detail"
+        "cinema-halls/<int:pk>/",
+        CinemaHallDetailView.as_view(),
+        name="cinema-hall-detail",
     ),
-    path("cinema-halls/", CinemaHallApiView.as_view(), name="cinema-hall-list"),
-    path("seats/<int:pk>/", SeatApiView.as_view(), name="seat-detail"),
-    path("seats/", SeatApiView.as_view(), name="seat-list"),
+    path("cinema-halls/", CinemaHallCreateView.as_view(), name="cinema-hall-list"),
+    path("seats/<int:pk>/", SeatDetailView.as_view(), name="seat-detail"),
+    path("seats/", SeatCreateView.as_view(), name="seat-list"),
     path(
-        "screenings/<int:pk>/", MovieScreeningApiView.as_view(), name="screening-detail"
+        "screenings/<int:pk>/",
+        MovieScreeningDetailView.as_view(),
+        name="screening-detail",
     ),
-    path("screenings/", MovieScreeningApiView.as_view(), name="screening-list"),
-    path("tickets/<int:pk>/", TicketApiView.as_view(), name="ticket-detail"),
-    path("tickets/", TicketApiView.as_view(), name="ticket-list"),
+    path("screenings/", MovieScreeningCreateView.as_view(), name="screening-list"),
+    path("tickets/<int:pk>/", TicketDetailView.as_view(), name="ticket-detail"),
+    path("tickets/", TicketCreateView.as_view(), name="ticket-list"),
 ]
 
 if DEBUG:
